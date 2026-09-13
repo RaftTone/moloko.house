@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>moloko.house - management & pr agency</title>
+    <link rel="icon" href="/favicon.ico">
+    
+    <meta property="og:title" content="moloko.house - management & pr agency">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/img/mlk_og.jpg">
+    <meta property="og:url" content="https://moloko.house">
+
+    <meta name="theme-color" content="#081014">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-green: #ddff77;
+            --text-white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* =========================================
+           БАЗОВІ СТИЛІ (ДЕСКТОП)
+           ========================================= */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: #000; 
+            color: var(--text-white);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .desktop-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('/img/mlk_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0; 
+        }
+
+        .bg-mob-top { display: none; }
+        .bg-mob-bot { display: none; }
+
+        .desk-br { display: block; }
+        .mob-br { display: none; }
+        .desk-space { display: inline; }
+        .desk-amp { display: inline; }
+        .mob-amp { display: none; }
+        
+        .logo-mob { display: none; }
+        .logo-desk {
+            width: 8vw;
+            max-width: 120px;
+            min-width: 60px;
+            height: auto;
+        }
+
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 10;
+        }
+
+        .agency-title {
+            font-weight: 300;
+            font-size: clamp(21px, 2.8vw, 42px); 
+            text-align: right;
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 120px; 
+            left: 40px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 2vh; 
+        }
+
+        .name-role-wrapper {
+            position: relative;
+            display: inline-block;
+            z-index: 2;
+        }
+
+        .name-role-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .name {
+            font-weight: 300;
+            font-size: clamp(20px, min(4vw, 7vh), 55px);
+            color: var(--brand-green);
+            line-height: 1;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .role {
+            font-weight: 300;
+            font-style: italic;
+            font-size: clamp(16px, min(3.5vw, 6vh), 45px);
+            color: var(--brand-green);
+            line-height: 1;
+            margin: 5px 0 0 0;
+            text-transform: uppercase;
+        }
+
+        .blob-image {
+            position: absolute;
+            top: 45%; 
+            left: 40%; 
+            width: clamp(90px, min(18vw, 25vh), 280px);
+            height: auto;
+            z-index: -1;
+            transition: left 0.3s ease;
+            animation: subtleFloat 6s ease-in-out infinite;
+        }
+
+        .projects-block {
+            width: 14vw; 
+            min-width: 200px; 
+            max-width: 260px; 
+            line-height: 1.3;
+            font-size: clamp(11px, 1.08vw, 17px); 
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .projects-title {
+            font-weight: normal; 
+            font-style: italic; 
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .projects-list {
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* =========================================
+           НОУТБУКИ ТА МЕНШІ ДЕСКТОПИ (Макбук 13" тощо)
+           ========================================= */
+        @media (min-width: 769px) and (max-width: 1440px), (min-width: 769px) and (max-height: 850px) {
+            .logo-desk {
+                max-width: 90px;
+            }
+            .agency-title {
+                font-size: clamp(18px, 2.5vw, 32px);
+            }
+            .hero-content {
+                bottom: 100px;
+                gap: 1.5vh;
+            }
+            .name {
+                font-size: clamp(20px, 3.5vw, 42px);
+            }
+            .role {
+                font-size: clamp(16px, 3vw, 32px);
+            }
+            .blob-image {
+                width: clamp(90px, 16vw, 220px);
+            }
+            .projects-block {
+                width: 25vw;
+                min-width: 150px;
+                max-width: 200px; /* Збільшуємо ширину раніше, щоб текст менше переносився */
+            }
+        }
+
+        /* Додаткове стиснення для дуже низьких екранів */
+        @media (min-width: 769px) and (max-height: 700px) {
+            .hero-content { bottom: 90px; gap: 1vh; }
+            .blob-image { left: 45%; width: clamp(90px, 14vw, 190px); }
+            .projects-block { width: 20vw; max-width: 300px; }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 30px;
+        }
+
+        .social-icons a {
+            color: var(--text-white);
+            font-size: clamp(16px, 1.5vw, 22px);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: opacity;
+        }
+
+        .social-icons a:hover {
+            opacity: 0.7;
+        }
+
+        .party-house {
+            color: var(--brand-green);
+            text-decoration: none; 
+            font-weight: normal;
+            font-style: italic;
+            font-size: clamp(16px, 1.5vw, 22px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.3s ease;
+            text-transform: uppercase;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: opacity;
+        }
+
+        .party-icon { color: var(--brand-green); }
+
+        .party-house .text-underline {
+            text-decoration: underline;
+        }
+
+        .party-house:hover {
+            opacity: 0.7;
+        }
+
+        /* =========================================
+           МОБІЛЬНА ВЕРСІЯ (Екрани до 768px)
+           ========================================= */
+        @media (max-width: 768px) {
+            
+            body, html {
+                height: auto;
+                min-height: 100vh;
+                overflow-x: hidden;
+                overflow-y: auto; 
+                background-color: #000;
+            }
+
+            body {
+                position: relative;
+                padding-bottom: 700px;
+            }
+
+            .bg-mob-top {
+                display: block;
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                bottom: 700px; 
+                background-image: url('/img/mlk_bg_mob.jpg');
+                background-size: cover;
+                background-position: center;
+                z-index: 0; 
+            }
+
+            .bg-mob-bot {
+                display: block;
+                position: absolute;
+                bottom: 0; left: 0; right: 0;
+                height: 700px; 
+                background-image: url('/img/mlk_bg_mob_bot.jpg');
+                background-size: cover;
+                background-position: center;
+                z-index: 0; 
+            }
+
+            .desktop-bg { display: none; }
+
+            .desk-br { display: none; }
+            .mob-br { display: block; }
+            .desk-space { display: none; }
+            .desk-amp { display: none; }
+            .mob-amp { display: inline; }
+
+            .logo-desk { display: none; }
+            .logo-mob { 
+                display: block; 
+                width: 30vw; 
+                min-width: 100px;
+                max-width: 180px;
+            }
+
+            .header {
+                position: relative;
+                top: 0; left: 0; right: 0;
+                padding: 30px 20px 0 20px;
+                flex-direction: column;
+                gap: 50px; 
+                align-items: flex-start;
+                z-index: 10;
+            }
+
+            .agency-title {
+                text-align: left;
+                color: var(--brand-green);
+                font-size: clamp(42px, 12.6vw, 62px); 
+            }
+
+            .hero-content {
+                position: relative; 
+                bottom: auto; left: 0;
+                margin-top: 15px; 
+                padding: 0 20px;
+                padding-bottom: 40px; 
+                display: flex;
+                flex-direction: column;
+                z-index: 5;
+            }
+
+            .name-role-wrapper { width: 100%; display: block; position: relative; }
+
+            .name { font-size: clamp(42px, 12.6vw, 62px); }
+            .role { font-size: clamp(42px, 12.6vw, 62px); margin-top: 5px; }
+
+            .blob-image {
+                left: auto;
+                right: -10vw; 
+                top: 55%; 
+                width: clamp(264px, 82vw, 460px); 
+            }
+
+            .projects-block {
+                position: relative;
+                margin-top: 200px; 
+                width: 50vw; 
+                max-width: 50vw; 
+                font-size: 16.5px; 
+                line-height: 1.35;
+                z-index: 2;
+            }
+
+            .footer {
+                position: absolute;
+                bottom: 30px; 
+                left: 20px; 
+                right: 20px;
+                align-items: flex-end;
+                z-index: 10;
+            }
+
+            .social-icons { gap: 40px; } 
+            .social-icons a { font-size: 22px; }
+
+            .party-house { 
+                flex-direction: column; 
+                align-items: flex-end; 
+                gap: 15px; 
+            }
+            .party-icon { 
+                color: var(--text-white); 
+                font-size: 18px; 
+                order: 2; 
+            }
+            .party-text-lines {
+                text-align: right;
+                line-height: 1.1;
+                order: 1; 
+            }
+        }
+
+        /* =========================================
+           АНІМАЦІЇ ДЛЯ JS
+           ========================================= */
+
+        .magnetic-el {
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="desktop-bg"></div>
+    <div class="bg-mob-top"></div>
+    <div class="bg-mob-bot"></div>
+
+    <header class="header">
+        <img src="/img/mlk_logo.png" alt="MOLOKO.HOUSE Logo" class="logo logo-desk magnetic-el">
+        <img src="/img/mlk_logo1.png" alt="MOLOKO.HOUSE Logo" class="logo logo-mob">
+        
+        <div class="agency-title magnetic-el">
+            Management <span class="desk-amp">&</span><br class="desk-br">
+            <span class="desk-space"> </span><span class="mob-amp">&</span> PR Agency
+        </div>
+    </header>
+
+    <main class="hero-content">
+        <div class="name-role-wrapper">
+            <div class="name-role-text magnetic-el">
+                <h1 class="name">Egor<br>Kiryanov</h1>
+                <h2 class="role">Founder<br>& CEO</h2>
+            </div>
+            
+            <img src="/img/mlk_founder.png" alt="Founder Image" class="blob-image">
+        </div>
+
+        <div class="projects-block magnetic-el">
+            <span class="projects-title">Selected Projects:</span>
+            <span class="projects-list">
+                Moloko Magazine, Esthetic Education, Koktebel Jazz Festival, Родинне Різдво з Катериною Осадчою, Atlas Weekend, Litkovska, bestinua.market, Bobkova, Intel Teach Ukraine, Johnny Bardo, Наталія Могилевська, The Hardkiss and more.
+            </span>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="https://facebook.com/moloko.house" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/moloko.house" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:koko@moloko.house"><i class="far fa-envelope"></i></a>
+        </div>
+        
+        <a href="https://t.me/mlk_magazine" target="_blank" rel="noopener noreferrer" class="party-house">
+            <i class="fas fa-paper-plane party-icon"></i> 
+            <span class="text-underline party-text-lines">
+                MLK<span class="desk-space"> </span><br class="mob-br">Party<span class="desk-space"> </span><br class="mob-br">House
+            </span>
+        </a>
+    </footer>
+
+    <script>
+        const initMagneticEffect = () => {
+            const elements = document.querySelectorAll('.logo-desk, .agency-title, .name-role-text, .projects-block');
+
+            elements.forEach(el => {
+                el.classList.add('magnetic-el');
+
+                el.addEventListener('mouseenter', () => {
+                    if (window.innerWidth <= 768) return;
+
+                    const rect = el.getBoundingClientRect();
+                    
+                    const screenCenterX = window.innerWidth / 2;
+                    const screenCenterY = window.innerHeight / 2;
+                    
+                    const elCenterX = rect.left + rect.width / 2;
+                    const elCenterY = rect.top + rect.height / 2;
+                    
+                    const dirX = screenCenterX - elCenterX;
+                    const dirY = screenCenterY - elCenterY;
+                    
+                    const distance = Math.sqrt(dirX * dirX + dirY * dirY);
+                    
+                    if (distance > 0) {
+                        const moveX = (dirX / distance) * 10; 
+                        const moveY = (dirY / distance) * 10;
+
+                        el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    }
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    if (window.innerWidth <= 768) return;
+                    el.style.transform = 'translate(0px, 0px)';
+                });
+            });
+        };
+
+        initMagneticEffect();
+        
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.magnetic-el').forEach(el => {
+                    el.style.transform = 'translate(0px, 0px)';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
